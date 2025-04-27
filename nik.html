@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+  <meta charset="UTF-8">
+  <title>Dodaj Zadanie</title>
+</head>
+<body>
+  <h1>Dodaj zadanie</h1>
+  <form id="task-form">
+    <input type="text" id="task" placeholder="Wpisz zadanie..." required>
+    <button type="submit">Dodaj</button>
+  </form>
+
+  <script>
+    document.getElementById('task-form').addEventListener('submit', async function(e) {
+      e.preventDefault();
+      const task = document.getElementById('task').value;
+      await fetch('http://IP_TWOJEGO_RPI:5000/add_task', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+        body: 'task=' + encodeURIComponent(task)
+      });
+      alert('Zadanie dodane!');
+      document.getElementById('task').value = '';
+    });
+  </script>
+</body>
+</html>
